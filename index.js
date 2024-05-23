@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((userCredential) => {
                 // El usuario inició sesión con éxito
                 console.log('Inicio de sesión exitoso');
-                window.location.href = '/index.html'; // Redirige al usuario a la página principal después del inicio de sesión exitoso
+                window.location.href = '/inicio.html'; // Redirige al usuario a la página principal después del inicio de sesión exitoso
             })
             .catch((error) => {
                 // Hubo un error al iniciar sesión
