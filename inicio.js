@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         firebase.auth().signOut()
             .then(() => {
                 console.log('Usuario cerró sesión');
-                window.location.href = '/login.html'; // Redirige al usuario a la página de inicio de sesión después de cerrar la sesión
+                window.location.href = '/index.html'; // Redirige al usuario a la página de inicio de sesión después de cerrar la sesión
             })
             .catch((error) => {
                 console.error('Error:', error);
