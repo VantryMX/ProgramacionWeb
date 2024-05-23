@@ -103,7 +103,7 @@
                 db.ref('inmuebles/' + editId).update(updatedData)
                     .then(() => {
                         console.log('Registro actualizado con éxito');
-                        window.location.href = '/index.html';
+                        window.location.href = '/inicio.html';
                     })
                     .catch((error) => {
                         console.error('Error:', error);
@@ -111,7 +111,7 @@
             });
 
             document.getElementById('salir-btn').addEventListener('click', function () {
-                window.location.href = '/index.html';
+                window.location.href = '/inicio.html';
             });
         });
     </script>
