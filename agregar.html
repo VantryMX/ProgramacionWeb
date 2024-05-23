@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Inmueble</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+</head>
+
+<body>
+    <div id="logos">
+        <img class="logo" src="Imagenes/edu.jpg" alt="Logo Izquierdo">
+        <img class="logo" src="Imagenes/tec.jpg" alt="Logo Derecho">
+    </div>
+    <form id="agregar-form">
+        <label for="numero">Número:</label>
+        <input type="text" id="numero" name="numero">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre">
+        <label for="caracteristicas">Características:</label>
+        <input type="text" id="caracteristicas" name="caracteristicas">
+        <label for="numero_inventario">Número de Inventario:</label>
+        <input type="text" id="numero_inventario" name="numero_inventario">
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca">
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo">
+        <label for="serie">Serie:</label>
+        <input type="text" id="serie" name="serie">
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" id="ubicacion" name="ubicacion">
+        <label for="observaciones">Observaciones:</label>
+        <input type="text" id="observaciones" name="observaciones">
+        <button type="submit">Agregar Inmueble</button>
+    </form>
+
+    <button id="salir">Salir</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('agregar-form');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const newData = {
+                    numero: document.getElementById('numero').value,
+                    nombre: document.getElementById('nombre').value,
+                    caracteristicas: document.getElementById('caracteristicas').value,
+                    numero_inventario: document.getElementById('numero_inventario').value,
+                    marca: document.getElementById('marca').value,
+                    modelo: document.getElementById('modelo').value,
+                    serie: document.getElementById('serie').value,
+                    ubicacion: document.getElementById('ubicacion').value,
+                    observaciones: document.getElementById('observaciones').value
+                };
+
+                var firebaseConfig = {
+                    apiKey: "AIzaSyA9aZCUntJmqzRPuCPOjtFAWY5UBSn2B1Y",
+                    databaseURL: "https://app-itcv-87b8a-default-rtdb.firebaseio.com/"
+                };
+
+                firebase.initializeApp(firebaseConfig);
+
+                var db = firebase.database();
+
+                db.ref('inmuebles').push(newData)
+                    .then((snapshot) => {
+                        // Mostrar un cuadro de diálogo en lugar de registrar en la consola
+                        alert('Inmueble agregado con éxito: ' + snapshot.key);
+                        window.location.href = '/index.html';
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            });
+
+            document.getElementById('salir').addEventListener('click', function () {
+                window.history.back();
+            });
+        });
+    </script>
+</body>
+
+</html>

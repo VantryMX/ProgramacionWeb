@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resguardo de Bienes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/login.css">
+</head>
+
+<body>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyA9aZCUntJmqzRPuCPOjtFAWY5UBSn2B1Y",
+        authDomain: "app-itcv-87b8a.firebaseapp.com",
+        projectId: "app-itcv-87b8a",
+        storageBucket: "app-itcv-87b8a.appspot.com",
+        messagingSenderId: "612816510216",
+        appId: "1:612816510216:web:c0ddf3332be45d9061e0bd",
+        measurementId: "G-PXEB8QV5V0"
+      };
+    
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
+
+    <div id="contenedor">
+        <div id="logos">
+            <img src="Imagenes/edu.jpg" alt="Logo 1" class="logo"> 
+            <h1 id="titulo">Tecnologico Nacional de Mexico
+                <br> Instituto Tecnologico de Ciudad Victoria
+            </h1>
+            <img src="Imagenes/tec.jpg" alt="Logo 2" class="logo"> 
+        </div>
+        <div id="central">
+            <div id="login">
+                <div class="titulo">
+                    Bienvenido
+                </div>
+                <form id="loginform">
+                    <input type="email" name="correo" placeholder="correo" aria-label="Correo" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$">
+                    <input type="password" placeholder="Contraseña" name="contraseña" aria-label="Contraseña" required>
+                    <button type="submit" title="Ingresar" name="Ingresar">Iniciar Sesión</button>
+                </form>
+                <div class="pie-form">
+                    <a href="registro.html" id="register-link">¿No tienes Cuenta? Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+
+</html>

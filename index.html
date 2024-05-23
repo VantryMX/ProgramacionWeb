@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+</head>
+
+<body>
+    
+    <div class="header-container">
+        <img class="logo" src="Imagenes/edu.jpg" alt="Logo Izquierdo">
+        <div id="bienvenido-container">
+            <h1>Bienvenido</h1>
+        </div>
+        <img class="logo" src="Imagenes/tec.jpg" alt="Logo Derecho">
+    </div>
+    <div class="usuarios">
+        <!-- Aquí se mostrará la información del usuario -->
+    </div>
+    <main>
+        <h2>Registro de Inmuebles</h2>
+        <!-- Agregar un campo de entrada para el filtrado de la tabla -->
+        <input type="text" id="filtro-input" placeholder="Filtrar tabla">
+        <table id="inmuebles-table">
+            <thead>
+                <tr>
+                    <th>Número de Inmueble</th>
+                    <th>Nombre</th>
+                    <th>Característica</th>
+                    <th>Número de Inventario</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Serie</th>
+                    <th>Ubicación</th>
+                    <th>Observaciones</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se generarán dinámicamente las filas de la tabla con los datos de los inmuebles -->
+            </tbody>
+        </table>
+        <!-- Botón de Agregar Inmueble -->
+        <button id="agregar-btn">Agregar Inmueble</button>
+        <!-- Botón de Descargar PDF -->
+        <button id="descargar-btn">Descargar PDF</button>
+        <div id="opciones-container">
+            <!-- Aquí se agregarán dinámicamente las opciones cuando se haga clic en el botón de editar -->
+        </div>
+        <button id="logout-btn">Cerrar sesión</button>
+    </main>
+    <script src="index.js"></script>
+    <script>
+        document.getElementById('filtro-input').addEventListener('input', function() {
+          // Filtrar la tabla basándose en el valor de entrada
+          var valorFiltro = this.value.trim().toLowerCase();
+          var filas = document.querySelectorAll('#inmuebles-table tbody tr');
+          filas.forEach(function(fila) {
+            var textoFila = fila.textContent.toLowerCase();
+            if (textoFila.includes(valorFiltro)) {
+              fila.style.display = '';
+            } else {
+              fila.style.display = 'none';
+            }
+          });
+        });
+        document.getElementById('agregar-btn').addEventListener('click', function() {
+    // Redirigir a la página de agregar inmueble
+    window.location.href = 'agregar.html';
+});
+        document.getElementById('descargar-btn').addEventListener('click', function() {
+          // Generar el PDF basándose en el valor de entrada
+          var valorFiltro = document.getElementById('filtro-input').value.trim().toLowerCase();
+          var filas = document.querySelectorAll('#inmuebles-table tbody tr');
+          var filasParaPdf = Array.from(filas).filter(function(fila) {
+            var textoFila = fila.textContent.toLowerCase();
+            return textoFila.includes(valorFiltro);
+          });
+        
+                    // Crear una copia de la tabla para no afectar la tabla original
+            var tableCopy = document.getElementById('inmuebles-table').cloneNode(true);
+            tableCopy.querySelector('tbody').innerHTML = '';
+
+            // Eliminar el encabezado de la columna de acciones
+            tableCopy.querySelector('thead tr').removeChild(tableCopy.querySelector('thead tr').cells[9]); // Ajusta el índice si es necesario
+
+            filasParaPdf.forEach(function(fila) {
+                var filaCopy = fila.cloneNode(true);
+                // Eliminar la celda de la columna de acciones por su índice
+                filaCopy.removeChild(filaCopy.cells[9]); // Ajusta el índice si es necesario
+                tableCopy.querySelector('tbody').appendChild(filaCopy);
+            });
+        
+          // Aplicar un formato específico al PDF
+          var pdf = new jsPDF('l', 'pt', 'legal');
+
+            // Cambiar el color de fondo a azul claro y el color de la letra a blanco
+            pdf.setFillColor(96, 96, 96); // Color de fondo en RGB
+            pdf.rect(0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight(), 'F'); // Dibujar rectángulo de color
+            pdf.setTextColor(255, 255, 255); // Color de la letra en RGB
+
+            // Agregar un título
+    pdf.setFontSize(18);
+    pdf.setFont('helvetica');
+    pdf.setFontType('bold');
+    var title = 'Inmuebles que coinciden con: ' + (valorFiltro || 'Todos');
+    var titleWidth = pdf.getStringUnitWidth(title) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+    var titleX = (pdf.internal.pageSize.getWidth() - titleWidth) / 2;
+    pdf.text(title, titleX, 30); // Ajustar las coordenadas según sea necesario
+
+            pdf.setFontSize(12);
+            pdf.setFontType('normal');
+
+            pdf.html(tableCopy, {
+    x: 10, // Ajusta la posición x si es necesario
+    y: 50, // Ajusta la posición y para mover la tabla hacia abajo
+    callback: function (pdf) {
+        pdf.save('inmuebles.pdf');
+    }
+});
+            });
+    </script>
+</body>
+
+</html>

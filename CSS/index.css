@@ -1,0 +1,121 @@
+:root {
+  --primary-color: #9c8a4f;
+  --secondary-color: #2d3436;
+  --white-color: #dfe6e9;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--secondary-color);
+  color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: var(--primary-color);
+  color: var(--white-color);
+}
+
+header h1 {
+  margin: 0;
+}
+
+#logout-btn {
+  margin-top: 20px;
+  align-self: flex-end;
+}
+
+.usuarios {
+  margin-top: 20px;
+}
+
+main {
+  padding: 20px;
+  text-align: center;
+  flex-grow: 1;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px; /* Agregar bordes redondeados */
+  margin: 10px; /* Agregar margen alrededor de los botones */
+  font-size: 16px; /* Aumentar el tamaño de la fuente */
+}
+
+button:hover {
+  background-color: #9c8a4f;
+  color: var(--secondary-color); /* Cambiar el color del texto al pasar el ratón */
+}
+
+button:active {
+  transform: scale(0.98); /* Hacer que el botón se reduzca ligeramente cuando se haga clic */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+table tr:hover {
+  background-color: #9c8a4f;
+  color: var(--secondary-color);
+}
+
+#opciones-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Estilos para el campo de filtrado */
+#filtro-input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+#filtro-input:focus {
+  color: black;
+  font-weight: bold;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+}
+
+.logo {
+  max-width: 150px;
+  height: auto;
+}
+
+#bienvenido-container {
+  text-align: center;
+  color: black;
+}
